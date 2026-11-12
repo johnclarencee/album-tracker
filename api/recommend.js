@@ -18,15 +18,22 @@ export default async function handler(req, res) {
 
   const model = "gemini-3.5-flash-lite";
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-      body: JSON.stringify({
+    const requestBody = JSON.stringify({
         systemInstruction: { parts: [{ text: "You are a music recommendation engine. You receive a person's saved albums with a star rating (0 means unrated) and status (wishlist, listening, listened). Infer taste from genres, eras, moods, and artists. Weight 4-5 star albums most, and steer away from styles of 1-2 star albums. Recommend exactly 6 real, released albums that are not in their list. At most 2 may be by artists already in the list. Reply only with JSON: {\"albums\":[{\"title\":\"\",\"artist\":\"\",\"reason\":\"\"}]}. Each reason is under 15 words and mentions the pattern it matches. Never include song lyrics." }] },
         contents: [{ role: "user", parts: [{ text: JSON.stringify(taste) }] }],
         generationConfig: { responseMimeType: "application/json" },
-      }),
-    });
+      });
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+    let response;
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+        body: requestBody,
+      });
+      if (response.status !== 503 || attempt === 2) break;
+      await new Promise((resolve) => setTimeout(resolve, 800 * 2 ** attempt));
+    }
     if (!response.ok) {
       const detail = await response.text();
       console.error("Gemini error:", response.status, detail);
