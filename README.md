@@ -7,7 +7,17 @@ Album Tracker is a React app for discovering albums, previewing tracks, and keep
 Live site: [https://album-tracker-vert-ten.vercel.app/](https://album-tracker-vert-ten.vercel.app/)
 GitHub repository: [https://github.com/johnclarencee/album-tracker](https://github.com/johnclarencee/album-tracker)
 
-Add screenshots of Discover search results, an album detail page, and Recommendations after completing the lab.
+### Discover search results
+
+![Album search results](screenshots/discover.PNG)
+
+### Album detail
+
+![Album detail page](screenshots/albumdetails.PNG)
+
+### Recommendations
+
+![Album recommendations](screenshots/reco.PNG)
 
 ## Features
 
@@ -56,18 +66,18 @@ This learning project is not affiliated with Apple, Spotify, Deezer, or Google.
 
 ## Reflection
 
-1. **Why use `useRef` for the audio element?** The audio object is an external browser object that should stay the same while React renders. A ref keeps that object without causing a render whenever the audio element itself is accessed; React state is used for values that the interface needs to display, such as the current track and progress.
-2. **Why keep API calls in `services/`?** A service keeps URLs, request handling, and response parsing in one place. Components can focus on showing data and responding to clicks instead of duplicating network code.
-3. **Why keep the Gemini key out of React and GitHub?** React code is sent to every browser, so a key placed there can be copied and used by someone else. A server-side environment variable keeps the key off the client bundle and out of the repository.
-4. **Why is this an LLM prompt and not a trained model?** The app sends a small taste profile to an existing language model; it does not train or update model weights. This makes suggestions flexible and easy to explain, but an LLM can invent albums, so the app checks suggestions against the iTunes catalog.
-5. **What was the hardest bug and how was it fixed?** The hardest issue in this build was a group of lint errors from modern React hooks rules and the server-side files. Loading results are now keyed to the requested album, the audio ref is initialized lazily, and Node's `process` is imported explicitly.
+1. **Why use `useRef` for the audio element?** I use `useRef` because the audio player should stay the same while pages change. I use state for things shown on screen, like the current song and progress.
+2. **Why keep API calls in `services/`?** API code stays in one place, so it is easier to find and update. This also keeps the pages and components easier to read.
+3. **Why keep the Gemini key out of React and GitHub?** Anyone can see code sent to the browser, so a key in React code could be copied. If I push the key to GitHub, someone else could use it, so the app keeps it on the server.
+4. **Why is this an LLM prompt and not a trained model?** The app asks an existing LLM to suggest albums; it does not train a model. This is quick and can explain suggestions, but the LLM can name albums that are not real, so the app checks iTunes.
+5. **What was the hardest bug and how was it fixed?** The hardest problem was a 503 error when Gemini was busy. I added retries so the app tries again before showing an error.
 
 ## Submission checklist
 
 - [x] [GitHub repository](https://github.com/johnclarencee/album-tracker)
 - [x] [Live Vercel site](https://album-tracker-vert-ten.vercel.app/)
-- [ ] Screenshot: search results
-- [ ] Screenshot: album page
-- [ ] Screenshot: recommendations
-- [ ] Confirm no API key is committed
-- [ ] Answer the five reflection questions in the lab manual
+- [x] Screenshot: search results
+- [x] Screenshot: album page
+- [x] Screenshot: recommendations
+- [x] Confirm no API key is committed
+- [x] Answer the five reflection questions in the lab manual
