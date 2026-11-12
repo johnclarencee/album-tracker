@@ -4,7 +4,10 @@ Album Tracker is a React app for discovering albums, previewing tracks, and keep
 
 ## Screenshots and live site
 
-Add screenshots of Discover search results, an album detail page, and Recommendations after completing the lab. Add your deployed Vercel link here: **[add live link]**.
+Live site: [https://album-tracker-vert-ten.vercel.app/](https://album-tracker-vert-ten.vercel.app/)
+GitHub repository: [https://github.com/johnclarencee/album-tracker](https://github.com/johnclarencee/album-tracker)
+
+Add screenshots of Discover search results, an album detail page, and Recommendations after completing the lab.
 
 ## Features
 
@@ -61,8 +64,8 @@ This learning project is not affiliated with Apple, Spotify, Deezer, or Google.
 
 ## Submission checklist
 
-- [ ] GitHub repository link
-- [ ] Live Vercel link
+- [x] [GitHub repository](https://github.com/johnclarencee/album-tracker)
+- [x] [Live Vercel site](https://album-tracker-vert-ten.vercel.app/)
 - [ ] Screenshot: search results
 - [ ] Screenshot: album page
 - [ ] Screenshot: recommendations
